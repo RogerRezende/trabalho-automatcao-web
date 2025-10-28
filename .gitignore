@@ -1,0 +1,35 @@
+# Node.js dependencies
+node_modules/
+
+# Cypress output
+cypress/videos/
+cypress/screenshots/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+.env.json
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE-specific files
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Coverage reports
+coverage/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Build output
+dist/
+build/
