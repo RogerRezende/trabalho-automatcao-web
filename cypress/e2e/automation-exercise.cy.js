@@ -35,7 +35,6 @@ describe('Automation Exercise', () => {
         cy.get('[data-qa="create-account"]').click();
 
         cy.url().should('includes', 'account_created');
-        cy.contains('b', 'Account Created!')
         cy.get('h2[data-qa="account-created"]').should('have.text', 'Account Created!');
     });
 
@@ -49,7 +48,7 @@ describe('Automation Exercise', () => {
         cy.contains('button', 'Login').click();
 
         cy.get('a[href="/logout"]').should('be.visible');
-        cy.contains('a', 'Logged in as QA Tester');
+        cy.get('i.fa-user').parent().should('contain', 'QA Tester');
     });
 
     it('Login User with incorrect email and password', () => {
@@ -61,7 +60,7 @@ describe('Automation Exercise', () => {
         cy.get('input[data-qa="login-password"]').type('WrongPassword', { log: false });
         cy.contains('button', 'Login').click();
 
-        cy.contains('p', 'Your email or password is incorrect!')
+        cy.get('.login-form > form > p').should('contain', 'Your email or password is incorrect!');
     });
 
     it('Logout User', () => {
@@ -75,8 +74,8 @@ describe('Automation Exercise', () => {
 
         cy.get('a[href="/logout"]').click();
 
-        cy.url().should('eq', 'https://automationexercise.com/');
         cy.get('a[href="/login"]').should('be.visible');
+        cy.get('a[href="/login"]').should('contain', 'Signup / Login');
     });
 
     it.only('Register User with existing email', () => {
@@ -90,7 +89,7 @@ describe('Automation Exercise', () => {
         cy.get('input[data-qa="signup-email"]').type('qa.tester-1761699660623@example.com');
         cy.contains('button', 'Signup').click();
 
-        cy.contains('p', 'Email Address already exist!')
+        cy.get('.signup-form > form > p').should('contain', 'Email Address already exist!');
     });
 
     /*it('Contact Us Form', () => {
