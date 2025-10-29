@@ -52,7 +52,7 @@ describe('Automation Exercise', () => {
         cy.contains('a', 'Logged in as QA Tester');
     });
 
-    it.only('Login User with incorrect email and password', () => {
+    it('Login User with incorrect email and password', () => {
         cy.visit('https://automationexercise.com/');
 
         cy.get('a[href="/login"]').click();
@@ -63,4 +63,43 @@ describe('Automation Exercise', () => {
 
         cy.contains('p', 'Your email or password is incorrect!')
     });
+
+    it.only('Logout User', () => {
+        cy.visit('https://automationexercise.com/');
+
+        cy.get('a[href="/login"]').click();
+
+        cy.get('input[data-qa="login-email"]').type('qa.tester-1761699660623@example.com');
+        cy.get('input[data-qa="login-password"]').type('SecurePass123', { log: false });
+        cy.contains('button', 'Login').click();
+
+        cy.get('a[href="/logout"]').click();
+
+        cy.url().should('eq', 'https://automationexercise.com/');
+        cy.get('a[href="/login"]').should('be.visible');
+    });
+
+    /*it('Register User with existing email', () => {
+        
+    });
+
+    it('Contact Us Form', () => {
+        
+    });
+
+    it('Verify all products and product detail page', () => {
+        
+    });
+
+    it('Search Product', () => {
+        
+    });
+
+    it('Verify subscription in home page', () => {
+        
+    });
+
+    it('Place order: register before checkout', () => {
+        
+    });*/
 });
