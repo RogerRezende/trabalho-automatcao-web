@@ -39,7 +39,7 @@ describe('Automation Exercise', () => {
         cy.get('h2[data-qa="account-created"]').should('have.text', 'Account Created!');
     });
 
-    it.only('Login User with correct email and password', () => {
+    it('Login User with correct email and password', () => {
         cy.visit('https://automationexercise.com/');
 
         cy.get('a[href="/login"]').click();
@@ -50,5 +50,17 @@ describe('Automation Exercise', () => {
 
         cy.get('a[href="/logout"]').should('be.visible');
         cy.contains('a', 'Logged in as QA Tester');
+    });
+
+    it.only('Login User with incorrect email and password', () => {
+        cy.visit('https://automationexercise.com/');
+
+        cy.get('a[href="/login"]').click();
+
+        cy.get('input[data-qa="login-email"]').type('wrong.email@example.com');
+        cy.get('input[data-qa="login-password"]').type('WrongPassword', { log: false });
+        cy.contains('button', 'Login').click();
+
+        cy.contains('p', 'Your email or password is incorrect!')
     });
 });
