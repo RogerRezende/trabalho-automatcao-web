@@ -2,7 +2,7 @@
 
 
 describe('Automation Exercise', () => {
-    it('Cadastrar um usuário', () => {
+    it('Register User', () => {
         const timestamp = new Date().getTime();
 
         cy.visit('https://automationexercise.com/');
@@ -37,5 +37,18 @@ describe('Automation Exercise', () => {
         cy.url().should('includes', 'account_created');
         cy.contains('b', 'Account Created!')
         cy.get('h2[data-qa="account-created"]').should('have.text', 'Account Created!');
+    });
+
+    it.only('Login User with correct email and password', () => {
+        cy.visit('https://automationexercise.com/');
+
+        cy.get('a[href="/login"]').click();
+
+        cy.get('input[data-qa="login-email"]').type('qa.tester-1761699660623@example.com');
+        cy.get('input[data-qa="login-password"]').type('SecurePass123', { log: false });
+        cy.contains('button', 'Login').click();
+
+        cy.get('a[href="/logout"]').should('be.visible');
+        cy.contains('a', 'Logged in as QA Tester');
     });
 });
