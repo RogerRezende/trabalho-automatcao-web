@@ -2,10 +2,12 @@
 
 
 describe('Automation Exercise', () => {
+    beforeEach(() => {
+        cy.visit('https://automationexercise.com/');
+    });
+
     it('Register User', () => {
         const timestamp = new Date().getTime();
-
-        cy.visit('https://automationexercise.com/');
 
         cy.get('a[href="/login"]').click();
 
@@ -39,8 +41,6 @@ describe('Automation Exercise', () => {
     });
 
     it('Login User with correct email and password', () => {
-        cy.visit('https://automationexercise.com/');
-
         cy.get('a[href="/login"]').click();
 
         cy.get('input[data-qa="login-email"]').type('qa.tester-1761699660623@example.com');
@@ -52,8 +52,6 @@ describe('Automation Exercise', () => {
     });
 
     it('Login User with incorrect email and password', () => {
-        cy.visit('https://automationexercise.com/');
-
         cy.get('a[href="/login"]').click();
 
         cy.get('input[data-qa="login-email"]').type('wrong.email@example.com');
@@ -64,8 +62,6 @@ describe('Automation Exercise', () => {
     });
 
     it('Logout User', () => {
-        cy.visit('https://automationexercise.com/');
-
         cy.get('a[href="/login"]').click();
 
         cy.get('input[data-qa="login-email"]').type('qa.tester-1761699660623@example.com');
@@ -80,8 +76,6 @@ describe('Automation Exercise', () => {
 
     it.only('Register User with existing email', () => {
         const timestamp = new Date().getTime();
-
-        cy.visit('https://automationexercise.com/');
 
         cy.get('a[href="/login"]').click();
 
