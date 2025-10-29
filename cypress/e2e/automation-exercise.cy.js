@@ -64,7 +64,7 @@ describe('Automation Exercise', () => {
         cy.contains('p', 'Your email or password is incorrect!')
     });
 
-    it.only('Logout User', () => {
+    it('Logout User', () => {
         cy.visit('https://automationexercise.com/');
 
         cy.get('a[href="/login"]').click();
@@ -79,11 +79,21 @@ describe('Automation Exercise', () => {
         cy.get('a[href="/login"]').should('be.visible');
     });
 
-    /*it('Register User with existing email', () => {
-        
+    it.only('Register User with existing email', () => {
+        const timestamp = new Date().getTime();
+
+        cy.visit('https://automationexercise.com/');
+
+        cy.get('a[href="/login"]').click();
+
+        cy.get('input[data-qa="signup-name"]').type('QA Tester');
+        cy.get('input[data-qa="signup-email"]').type('qa.tester-1761699660623@example.com');
+        cy.contains('button', 'Signup').click();
+
+        cy.contains('p', 'Email Address already exist!')
     });
 
-    it('Contact Us Form', () => {
+    /*it('Contact Us Form', () => {
         
     });
 
