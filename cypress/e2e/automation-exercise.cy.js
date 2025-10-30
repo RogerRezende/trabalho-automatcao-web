@@ -1,16 +1,9 @@
 /// <reference types="cypress" />
 
-
-import userData from '../fixtures/example.json';
-import wrongData from '../fixtures/example_data_wrong.json';
-import messages from '../fixtures/messages.json';
-import contactData from '../fixtures/form_contact.json';
-import {
-    getRandomEmail
-} from '../support/helpers';
-import {
-    faker
-} from '@faker-js/faker';
+import menu from '../modules/menu';
+import login from '../modules/login';
+import cadastro from '../modules/cadastro';
+import contato from '../modules/contato';
 
 describe('Automation Exercise', () => {
     beforeEach(() => {
@@ -18,136 +11,48 @@ describe('Automation Exercise', () => {
     });
 
     it('Register User', () => {
-        cy.get('a[href="/login"]').click();
-
-        cy.get('input[data-qa="signup-name"]').type(userData.nome);
-        cy.get('input[data-qa="signup-email"]').type(getRandomEmail());
-        cy.contains('button', 'Signup').click();
-
-        cy.get('input[type="radio"]').check(userData.tratamento);
-        cy.get('input#password').type(userData.senha, { log: false });
-        cy.get('[data-qa="days"]').select(userData.data_nascimento.dia);
-        cy.get('[data-qa="months"]').select(userData.data_nascimento.mes);
-        cy.get('[data-qa="years"]').select(userData.data_nascimento.ano);
-        cy.get('input[type="checkbox"]#newsletter').check();
-        cy.get('input[type="checkbox"]#optin').check();
-
-        cy.get('input#first_name').type(userData.primeiro_nome);
-        cy.get('input#last_name').type(userData.ultimo_nome);
-        cy.get('input#company').type(userData.empresa);
-        cy.get('input#address1').type(userData.endereco);
-        cy.get('input#address2').type(userData.endereco2);
-        cy.get('select#country').select(userData.pais);
-        cy.get('input#state').type(userData.estado);
-        cy.get('input#city').type(userData.cidade);
-        cy.get('[data-qa="zipcode"]').type(userData.cep);
-        cy.get('input[data-qa="mobile_number"]').type(userData.numero_telefone);
-
-        cy.get('[data-qa="create-account"]').click();
-
-        cy.url().should('includes', 'account_created');
-        cy.get('h2[data-qa="account-created"]').should('have.text', messages.sucesso_conta_criada);
+        menu.navegarParaLogin();
+        login.preencherPreCadastro();
+        cadastro.preencherCadastro();
+        cadastro.validarContaCriada();
     });
 
-    it.only('Register User with random data', () => {
-        const randomNome = faker.person.fullName();
-        const randomEmail = faker.internet.email();
-        const randomEmpresa = faker.company.name();
-        const randomEndereco1 = faker.location.streetAddress();
-        const randomEndereco2 = faker.location.streetAddress();
-        const randomCidade = faker.location.city();
-        const randomEstado = faker.location.state();
-        const randomCep = faker.location.zipCode();
-
-        cy.get('a[href="/login"]').click();
-
-        cy.get('input[data-qa="signup-name"]').type(randomNome);
-        cy.get('input[data-qa="signup-email"]').type(randomEmail);
-        cy.contains('button', 'Signup').click();
-
-        cy.get('input[type="radio"]').check(userData.tratamento);
-        cy.get('input#password').type(userData.senha, { log: false });
-        cy.get('[data-qa="days"]').select(userData.data_nascimento.dia);
-        cy.get('[data-qa="months"]').select(userData.data_nascimento.mes);
-        cy.get('[data-qa="years"]').select(userData.data_nascimento.ano);
-        cy.get('input[type="checkbox"]#newsletter').check();
-        cy.get('input[type="checkbox"]#optin').check();
-
-        cy.get('input#first_name').type(userData.primeiro_nome);
-        cy.get('input#last_name').type(userData.ultimo_nome);
-        cy.get('input#company').type(randomEmpresa);
-        cy.get('input#address1').type(randomEndereco1);
-        cy.get('input#address2').type(randomEndereco2);
-        cy.get('select#country').select(userData.pais);
-        cy.get('input#state').type(randomEstado);
-        cy.get('input#city').type(randomCidade);
-        cy.get('[data-qa="zipcode"]').type(randomCep);
-        cy.get('input[data-qa="mobile_number"]').type(userData.numero_telefone);
-
-        cy.get('[data-qa="create-account"]').click();
-
-        cy.url().should('includes', 'account_created');
-        cy.get('h2[data-qa="account-created"]').should('have.text', messages.sucesso_conta_criada);
+    it('Register User with random data', () => {
+        menu.navegarParaLogin();
+        login.preencherPreCadastroRandomico();
+        cadastro.preencherCadastroRandomico();
+        cadastro.validarContaCriada();
     });
 
     it('Login User with correct email and password', () => {
-        cy.get('a[href="/login"]').click();
-
-        cy.get('input[data-qa="login-email"]').type(userData.email);
-        cy.get('input[data-qa="login-password"]').type(userData.senha, { log: false });
-        cy.contains('button', 'Login').click();
-
-        cy.get('a[href="/logout"]').should('be.visible');
-        cy.get('i.fa-user').parent().should('contain', userData.nome);
+        menu.navegarParaLogin();
+        login.fazerLogin();
+        login.validarLoginComSucesso();
     });
 
     it('Login User with incorrect email and password', () => {
-        cy.get('a[href="/login"]').click();
-
-        cy.get('input[data-qa="login-email"]').type(wrongData.email_errado);
-        cy.get('input[data-qa="login-password"]').type(wrongData.senha_errada, { log: false });
-        cy.contains('button', 'Login').click();
-
-        cy.get('.login-form > form > p').should('contain', messages.erro_login);
+        menu.navegarParaLogin();
+        login.fazerLoginSemSucesso();
+        login.validarLoginSemSucesso();
     });
 
     it('Logout User', () => {
-        cy.get('a[href="/login"]').click();
-
-        cy.get('input[data-qa="login-email"]').type(userData.email);
-        cy.get('input[data-qa="login-password"]').type(userData.senha, { log: false });
-        cy.contains('button', 'Login').click();
-
-        cy.get('a[href="/logout"]').click();
-
-        cy.get('a[href="/login"]').should('be.visible');
-        cy.get('a[href="/login"]').should('contain', 'Signup / Login');
+        menu.navegarParaLogin();
+        login.fazerLogin();
+        menu.navegarParaLogout();
+        login.validarLogoutComSucesso();
     });
 
     it('Register User with existing email', () => {
-        cy.get('a[href="/login"]').click();
-
-        cy.get('input[data-qa="signup-name"]').type(userData.nome);
-        cy.get('input[data-qa="signup-email"]').type(userData.email);
-        cy.contains('button', 'Signup').click();
-
-        cy.get('.signup-form > form > p').should('contain', messages.erro_email_existente);
+        menu.navegarParaLogin();
+        login.preencherPreCadastroComEmailExistente();
+        login.validarPreCadastroComEmailExistente();
     });
 
-    it('Contact Us Form', () => {
-        cy.get('a[href="/contact_us"]').click();
-
-        cy.get('input[data-qa="name"]').type(userData.nome);
-        cy.get('input[data-qa="email"]').type(userData.email);
-        cy.get('input[data-qa="subject"]').type(contactData.assunto);
-        cy.get('textarea[data-qa="message"]').type(contactData.mensagem);
-        cy.fixture('arquivo.jpg').as('arquivo');
-        cy.get('input[type="file"]').selectFile('@arquivo');
-
-        cy.get('input[data-qa="submit-button"]').click();
-
-        cy.url().should('includes', 'contact_us');
-        cy.get('.contact-form > .status.alert.alert-success').should('contain', messages.sucesso_envio_formulario_contato);
+    it.only('Contact Us Form', () => {
+        menu.navegarParaContactUs();
+        contato.preencherFormularioContato();
+        contato.validarFormularioContatoEnviadoComSucesso();
     });
 
     /*it('Verify all products and product detail page', () => {
