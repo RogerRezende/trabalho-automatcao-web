@@ -8,6 +8,9 @@ class Menu {
     navegarParaLogout() {
         cy.get('a[href="/logout"]').click();
     }
+    navegarParaProdutos() {
+        cy.get('a[href="/products"]').click();
+    }
 }
 
 export default new Menu();

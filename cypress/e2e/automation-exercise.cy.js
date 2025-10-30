@@ -49,17 +49,17 @@ describe('Automation Exercise', () => {
         login.validarPreCadastroComEmailExistente();
     });
 
-    it.only('Contact Us Form', () => {
+    it('Contact Us Form', () => {
         menu.navegarParaContactUs();
         contato.preencherFormularioContato();
         contato.validarFormularioContatoEnviadoComSucesso();
     });
 
-    /*it('Verify all products and product detail page', () => {
-        
+    it('Verify all products and product detail page', () => {
+        menu.navegarParaProdutos();
     });
 
-    it('Search Product', () => {
+    /*it('Search Product', () => {
         
     });
 
