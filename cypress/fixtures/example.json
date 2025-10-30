@@ -1,0 +1,21 @@
+{
+  "nome": "QA Tester",
+  "email": "qa.tester-1761699660623@example.com",
+  "tratamento": "Mr",
+  "senha": "SecurePass123",
+  "data_nascimento": {
+    "dia": "10",
+    "mes": "May",
+    "ano": "1990"
+  },
+  "primeiro_nome": "QA",
+  "ultimo_nome": "Tester",
+  "empresa": "TestCorp",
+  "endereco": "123 Test St",
+  "endereco2": "Apt 4",
+  "pais": "Canada",
+  "estado": "TestState",
+  "cidade": "TestCity",
+  "cep": "T3S7T3",
+  "numero_telefone": "+1234567890"
+}
