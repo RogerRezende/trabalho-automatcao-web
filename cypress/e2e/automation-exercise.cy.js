@@ -5,19 +5,20 @@ import userData from '../fixtures/example.json';
 import wrongData from '../fixtures/example_data_wrong.json';
 import messages from '../fixtures/messages.json';
 import contactData from '../fixtures/form_contact.json';
+import {
+    getRandomEmail
+} from '../support/helpers';
 
 describe('Automation Exercise', () => {
     beforeEach(() => {
         cy.visit('https://automationexercise.com/');
     });
 
-    it('Register User', () => {
-        const timestamp = new Date().getTime();
-
+    it.only('Register User', () => {
         cy.get('a[href="/login"]').click();
 
         cy.get('input[data-qa="signup-name"]').type(userData.nome);
-        cy.get('input[data-qa="signup-email"]').type(`qa.tester-${timestamp}@example.com`);
+        cy.get('input[data-qa="signup-email"]').type(getRandomEmail());
         cy.contains('button', 'Signup').click();
 
         cy.get('input[type="radio"]').check(userData.tratamento);
@@ -89,7 +90,7 @@ describe('Automation Exercise', () => {
         cy.get('.signup-form > form > p').should('contain', messages.erro_email_existente);
     });
 
-    it.only('Contact Us Form', () => {
+    it('Contact Us Form', () => {
         cy.get('a[href="/contact_us"]').click();
 
         cy.get('input[data-qa="name"]').type(userData.nome);
