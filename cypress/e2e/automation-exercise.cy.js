@@ -63,11 +63,13 @@ describe('Automation Exercise', () => {
         produtos.validarPaginaDetalheDoProduto();
     });
 
-    /*it('Search Product', () => {
-        
+    it('Search Product', () => {
+        menu.navegarParaProdutos();
+        produtos.realizarBuscaDeProduto();
+        produtos.validarPaginaBuscaDeProduto();
     });
 
-    it('Verify subscription in home page', () => {
+    /*it('Verify subscription in home page', () => {
         
     });
 
