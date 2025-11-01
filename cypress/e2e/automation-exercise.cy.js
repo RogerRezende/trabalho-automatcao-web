@@ -77,7 +77,7 @@ describe('Automation Exercise', () => {
         home.validarSubscribeComSucesso();
     });
 
-    it.only('Place order: register before checkout', () => {
+    it('Place order: register before checkout', () => {
         menu.navegarParaLogin();
         login.preencherPreCadastro();
         cadastro.preencherCadastro();
