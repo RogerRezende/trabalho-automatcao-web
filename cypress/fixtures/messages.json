@@ -2,5 +2,6 @@
     "sucesso_conta_criada": "Account Created!",
     "sucesso_envio_formulario_contato": "Success! Your details have been submitted successfully.",
     "erro_login": "Your email or password is incorrect!",
-    "erro_email_existente": "Email Address already exist!"
+    "erro_email_existente": "Email Address already exist!",
+    "sucesso_subscribe": "You have been successfully subscribed!"
 }

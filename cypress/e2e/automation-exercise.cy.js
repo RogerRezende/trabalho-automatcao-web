@@ -4,6 +4,9 @@ import menu from '../modules/menu';
 import login from '../modules/login';
 import cadastro from '../modules/cadastro';
 import contato from '../modules/contato';
+import produtos from '../modules/produtos';
+import home from '../modules/home';
+import carrinho from '../modules/carrinho';
 
 describe('Automation Exercise', () => {
     beforeEach(() => {
@@ -57,17 +60,35 @@ describe('Automation Exercise', () => {
 
     it('Verify all products and product detail page', () => {
         menu.navegarParaProdutos();
+        produtos.validarPaginaListaDeProdutos();
+        produtos.navegarParaOPrimeiroProduto();
+        produtos.validarPaginaDetalheDoProduto();
     });
 
-    /*it('Search Product', () => {
-        
+    it('Search Product', () => {
+        menu.navegarParaProdutos();
+        produtos.realizarBuscaDeProduto();
+        produtos.validarPaginaBuscaDeProduto();
     });
 
     it('Verify subscription in home page', () => {
-        
+        home.irAtéFinalDaPagina();
+        home.preencherCampoSubscribe();
+        home.validarSubscribeComSucesso();
     });
 
-    it('Place order: register before checkout', () => {
-        
-    });*/
+    it.only('Place order: register before checkout', () => {
+        menu.navegarParaLogin();
+        login.preencherPreCadastro();
+        cadastro.preencherCadastro();
+        cadastro.clicarContinuarDepoisDeCriarConta();
+        menu.navegarParaProdutos();
+        produtos.validarPaginaListaDeProdutos();
+        produtos.navegarParaOPrimeiroProduto();
+        carrinho.colocarProdutoNoCarrinho();
+        carrinho.navegarParaCheckout();
+        carrinho.navegarParaPagamento();
+        carrinho.preencherDetalhesPagamento();
+        carrinho.validarPagamentoComSucesso();
+    });
 });

@@ -11,6 +11,9 @@ class Menu {
     navegarParaProdutos() {
         cy.get('a[href="/products"]').click();
     }
+    navegarParaHome() {
+        cy.get('a[href="/"]').click();
+    }
 }
 
 export default new Menu();

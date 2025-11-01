@@ -56,6 +56,9 @@ class Cadastro {
 
         cy.get('[data-qa="create-account"]').click();
     }
+    clicarContinuarDepoisDeCriarConta() {
+        cy.get('[data-qa="continue-button"]').click();
+    }
     validarContaCriada() {
         cy.url().should('includes', 'account_created');
         cy.get('h2[data-qa="account-created"]').should('have.text', messages.sucesso_conta_criada);
