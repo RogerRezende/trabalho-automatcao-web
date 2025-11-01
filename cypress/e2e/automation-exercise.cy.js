@@ -5,6 +5,7 @@ import login from '../modules/login';
 import cadastro from '../modules/cadastro';
 import contato from '../modules/contato';
 import produtos from '../modules/produtos';
+import home from '../modules/home';
 
 describe('Automation Exercise', () => {
     beforeEach(() => {
@@ -69,11 +70,13 @@ describe('Automation Exercise', () => {
         produtos.validarPaginaBuscaDeProduto();
     });
 
-    /*it('Verify subscription in home page', () => {
-        
+    it('Verify subscription in home page', () => {
+        home.irAtéFinalDaPagina();
+        home.preencherCampoSubscribe();
+        home.validarSubscribeComSucesso();
     });
 
-    it('Place order: register before checkout', () => {
+    /*it('Place order: register before checkout', () => {
         
     });*/
 });
