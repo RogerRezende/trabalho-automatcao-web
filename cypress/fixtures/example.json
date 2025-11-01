@@ -17,5 +17,9 @@
   "estado": "TestState",
   "cidade": "TestCity",
   "cep": "T3S7T3",
-  "numero_telefone": "+1234567890"
+  "numero_telefone": "+1234567890",
+  "data_cartao_credito": {
+    "mes": "12",
+    "ano": "2030"
+  }
 }
